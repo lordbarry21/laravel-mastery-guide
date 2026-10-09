@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel 11 Serkom Master Guide: Panduan End-to-End Sistem Pemesanan Restoran</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#080d1a',
+                        },
+                        brand: {
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            indigo: '#4f46e5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Zero Gradient Directive: Crisp solid colors, subtle structural borders */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b1120;
+            color: #f1f5f9;
+        }
+        pre, code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .code-block {
+            background-color: #030712;
+            border: 1px solid #1f2937;
+        }
+        .editorial-border {
+            border-color: #1e293b;
+        }
+        .active-nav {
+            background-color: #1e293b;
+            color: #10b981;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-slate-950">
+
+    <!-- Top Sticky Minimalist Navbar -->
+    <nav class="sticky top-0 z-50 bg-[#0b1120]/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center font-extrabold text-sm tracking-tight">
+                    LK
+                </div>
+                <div>
+                    <span class="font-bold text-sm tracking-tight text-white block">Laravel Serkom Blueprint</span>
+                    <span class="text-[10px] text-emerald-400 font-mono tracking-wider uppercase block">Zero-Error Edition</span>
+                </div>
+            </div>
+
+            <!-- Quick Chapter Links -->
+            <div class="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-300">
+                <a href="#prolog" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">Prolog</a>
+                <a href="#xampp" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">XAMPP</a>
+                <a href="#mcr" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">Flag -mcr</a>
+                <a href="#migrations" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">Migrasi</a>
+                <a href="#models" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">Model</a>
+                <a href="#crud" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">CRUD</a>
+                <a href="#transaksi" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition">Transaksi</a>
+                <a href="#bug-autopsy" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition text-amber-400">5 Bug Modul</a>
+                <a href="#drill" class="px-2.5 py-1.5 rounded-md hover:bg-slate-800 hover:text-white transition text-emerald-400">Drill</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://github.com/lordbarry21/serkom-laravel-kuliner" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold rounded-lg border border-slate-700 transition inline-flex items-center gap-1.5">
+                    <span>GitHub Repo</span>
+                    <span class="text-emerald-400">&nearr;</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Attention) -->
+    <header class="py-20 md:py-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-b border-slate-800/80">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-xs text-slate-300 font-mono mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Standar LSP RPL &bull; Laravel 11 &bull; 100% Zero-Error</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
+            Hafal Alur Pemesanan Makanan Laravel Dari Nol Sampai Lulus Ujian
+        </h1>
+
+        <p class="mt-6 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Panduan editorial runut end-to-end: mulai dari klik Start XAMPP, membedah arti flag sakti <code class="text-emerald-400 font-mono">-mcr</code>, transaksi atomik database, hingga membedah 5 jebakan error fatal yang ada pada modul sekolah.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="#prolog" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl transition shadow-sm">
+                Mulai Membaca Panduan
+            </a>
+            <a href="#drill" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm rounded-xl transition">
+                Coba Flashcard Hafalan
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Editorial Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+            <!-- Sticky Left Sidebar Navigation -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sticky top-24 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Daftar Bab Panduan</h3>
+                    <nav class="space-y-1 text-xs font-medium text-slate-400">
+                        <a href="#prolog" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">0. Prolog & Mental Model</a>
+                        <a href="#xampp" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">1. XAMPP & Port Database</a>
+                        <a href="#mcr" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">2. Install & Perintah -mcr</a>
+                        <a href="#migrations" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">3. Migrasi & Foreign Key</a>
+                        <a href="#models" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">4. Eloquent & Mass Assignment</a>
+                        <a href="#seeders" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">5. Seeder & Admin Default</a>
+                        <a href="#breeze" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">6. Breeze & Storage Link</a>
+                        <a href="#crud" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">7. CRUD Master Makanan</a>
+                        <a href="#transaksi" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">8. Transaksi Pelanggan Atomik</a>
+                        <a href="#dashboard" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition">9. Dashboard Kasir & Eager Loading</a>
+                        <a href="#bug-autopsy" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition text-amber-400">10. Bedah 5 Bug Modul Sekolah</a>
+                        <a href="#drill" class="block px-3 py-2 rounded-lg hover:bg-slate-800 hover:text-white transition text-emerald-400">11. Speedrun Flashcard Drill</a>
+                    </nav>
+
+                    <div class="pt-4 border-t border-slate-800">
+                        <span class="text-[11px] text-slate-500 font-mono block mb-2">Progress Belajar:</span>
+                        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                            <div id="learningProgressBar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                        <span id="learningProgressText" class="text-[10px] text-slate-400 font-mono mt-1 block">0% Selesai</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Article Column -->
+            <main class="lg:col-span-9 space-y-16">
+
+                <!-- BAB 0: PROLOG & MENTAL MODEL -->
+                <section id="prolog" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 00</span> &bull; <span>Pondasi Berpikir</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Pahami Mental Model Sebelum Menulis Satu Baris Kode
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Kebanyakan siswa RPL gagal di uji kompetensi bukan karena tidak bisa mengetik PHP, melainkan karena <strong class="text-white">tidak memahami alur data bolak-balik</strong> antara Pelanggan dan Kasir. Mari kita kunci gambaran besarnya di kepala:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-white text-sm flex items-center gap-2 mb-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                Sisi Pelanggan (Publik / Tanpa Login)
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Pelanggan duduk di meja, membuka URL <code class="text-emerald-400">/</code>, memilih makanan via stepper (+/-), mengisi nama dan nomor meja, meninjau ringkasan di modal pop-up, lalu menekan checkout. Data masuk secara aman via transaksi database.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-white text-sm flex items-center gap-2 mb-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                Sisi Kasir/Admin (Terproteksi Login)
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Kasir login di <code class="text-amber-400">/login</code>, memantau pesanan yang baru masuk di <code class="text-amber-400">/dashboard</code>, mengubah status meja (*Pending* &rarr; *Diproses* &rarr; *Selesai*), dan mengelola menu makanan (CRUD + Upload Foto).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl text-xs font-mono text-slate-300">
+                        <p class="text-emerald-400 font-bold mb-1">RUMUS PASTI ALUR DATA LARAVEL:</p>
+                        <p>Route (web.php) &rarr; Controller &rarr; Model / DB Transaction &rarr; View (Blade HTML)</p>
+                    </div>
+                </section>
+
+                <!-- BAB 1: XAMPP & PORT DATABASE -->
+                <section id="xampp" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 01</span> &bull; <span>Environment & Web Server</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Menyalakan XAMPP dan Mengamankan Port MySQL (3306)
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Sebelum menyentuh terminal, database MySQL harus aktif. Langkah ini terdengar sepele, tetapi jika MySQL bentrok port dengan layanan lain di komputer sekolah, Laravel tidak akan pernah bisa terhubung ke database.
+                    </p>
+
+                    <div class="space-y-4 my-6 text-sm">
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+                            <div>
+                                <strong class="text-white block font-semibold">Buka XAMPP Control Panel</strong>
+                                <span class="text-slate-400 text-xs">Klik tombol <span class="text-white font-mono bg-slate-800 px-1.5 py-0.5 rounded">Start</span> pada modul <strong>Apache</strong> dan modul <strong>MySQL</strong>. Indikator keduanya harus berubah menjadi hijau terang.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+                            <div>
+                                <strong class="text-white block font-semibold">Bagaimana jika MySQL Gagal Start (Port 3306 Error)?</strong>
+                                <span class="text-slate-400 text-xs">Penyebab nomor satu adalah service MySQL bawaan Windows lain yang sedang berjalan. Buka CMD Run as Administrator dan jalankan <code class="text-amber-300 font-mono">net stop MySQL</code> lalu coba klik Start kembali di XAMPP.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+                            <div>
+                                <strong class="text-white block font-semibold">Uji Buka phpMyAdmin di Browser</strong>
+                                <span class="text-slate-400 text-xs">Kunjungi <a href="http://localhost/phpmyadmin" target="_blank" class="text-emerald-400 underline font-mono">http://localhost/phpmyadmin</a> untuk memastikan database server siap menerima koneksi.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BAB 2: INSTALL LARAVEL & FLAG SAKTI -mcr -->
+                <section id="mcr" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 02</span> &bull; <span>Artisan Mastery</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Membuat Proyek & Membedah Makna Perintah Sakti -mcr
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Di ruang ujian Serkom, waktu adalah musuh utama. Membuat Model, Migration, dan Controller satu per satu secara manual membutuhkan waktu 10 menit lebih lama dan rentan salah ketik nama. Inilah mengapa perintah <code class="text-emerald-400 font-mono">-mcr</code> wajib Anda kuasai.
+                    </p>
+
+                    <div class="code-block rounded-xl p-4 my-4 relative">
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded font-mono transition">Salin</button>
+                        <pre class="text-xs text-slate-200 overflow-x-auto"><code># 1. Buat folder proyek Laravel baru
+composer create-project laravel/laravel pesanmakan
+
+# 2. Masuk ke folder proyek
+cd pesanmakan
+
+# 3. Jalankan artisan dengan flag -mcr
+php artisan make:model Food -mcr
+php artisan make:model Order -mcr
+php artisan make:model OrderDetail -m</code></pre>
+                    </div>
+
+                    <h4 class="text-white font-bold text-sm mt-6 mb-3">Bedah Anatomi Perintah: Apa Itu -mcr?</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                            <span class="text-emerald-400 font-mono font-bold text-lg block mb-1">-m</span>
+                            <strong class="text-white text-xs block font-semibold">Migration</strong>
+                            <p class="text-[11px] text-slate-400 mt-1">Otomatis membuat file cetak biru tabel database di folder <code class="text-slate-300">database/migrations/</code>.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                            <span class="text-sky-400 font-mono font-bold text-lg block mb-1">-c</span>
+                            <strong class="text-white text-xs block font-semibold">Controller</strong>
+                            <p class="text-[11px] text-slate-400 mt-1">Otomatis membuat file pengendali logika di folder <code class="text-slate-300">app/Http/Controllers/</code>.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                            <span class="text-amber-400 font-mono font-bold text-lg block mb-1">-r</span>
+                            <strong class="text-white text-xs block font-semibold">Resource Methods</strong>
+                            <p class="text-[11px] text-slate-400 mt-1">Langsung mengisikan 7 method standar CRUD: <code class="text-slate-300">index, create, store, show, edit, update, destroy</code>.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-slate-950 border-l-4 border-emerald-500 rounded-r-xl text-xs text-slate-300">
+                        <strong class="text-white block font-semibold mb-1">Konfigurasi .env (Database Koneksi):</strong>
+                        Buka file <code class="text-emerald-400 font-mono">.env</code> dan pastikan baris berikut:
+                        <pre class="mt-2 text-slate-400 font-mono">DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pesanmakan
+DB_USERNAME=root
+DB_PASSWORD=</pre>
+                        <p class="mt-2 text-slate-400">Tips Laravel 11: Jika database <code class="text-white">pesanmakan</code> belum Anda buat di phpMyAdmin, saat menjalankan <code class="text-emerald-400 font-mono">php artisan migrate</code> Laravel akan bertanya: <em>"The database does not exist. Would you like to create it?"</em> Ketik <strong>yes</strong> lalu tekan Enter!</p>
+                    </div>
+                </section>
+
+                <!-- BAB 3: FILE MIGRATION & SINKRONISASI ENUM -->
+                <section id="migrations" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 03</span> &bull; <span>Database Architecture</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        3 Tabel Relasional & Aturan Emas Foreign Key Cascade
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Ada 3 tabel utama yang harus berelasi dengan sempurna: tabel master makanan (<code class="text-emerald-400 font-mono">foods</code>), tabel pesanan induk (<code class="text-emerald-400 font-mono">orders</code>), dan tabel rincian transaksi (<code class="text-emerald-400 font-mono">order_details</code>).
+                    </p>
+
+                    <!-- TABEL FOODS -->
+                    <div class="my-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-slate-300">1. Migration Tabel Master Makanan (foods)</span>
+                            <span class="text-[11px] font-mono text-slate-500">database/migrations/xxxx_create_foods_table.php</span>
+                        </div>
+                        <div class="code-block rounded-xl p-4 relative">
+                            <button onclick="copyCode(this)" class="absolute top-3 right-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded font-mono transition">Salin</button>
+                            <pre class="text-xs text-slate-200 overflow-x-auto"><code>Schema::create('foods', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->enum('category', ['Makanan', 'Minuman', 'Cemilan']);
+    $table->decimal('price', 10, 2);
+    $table->text('description')->nullable();
+    $table->string('image')->nullable();
+    $table->timestamps();
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- TABEL ORDERS -->
+                    <div class="my-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-slate-300">2. Migration Tabel Pesanan Induk (orders)</span>
+                            <span class="text-[11px] font-mono text-slate-500">database/migrations/xxxx_create_orders_table.php</span>
+                        </div>
+                        <div class="code-block rounded-xl p-4 relative">
+                            <button onclick="copyCode(this)" class="absolute top-3 right-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded font-mono transition">Salin</button>
+                            <pre class="text-xs text-slate-200 overflow-x-auto"><code>Schema::create('orders', function (Blueprint $table) {
+    $table->id();
+    $table->string('customer_name');
+    $table->string('table_number');
+    $table->decimal('total_price', 12, 2)->default(0);
+    // CATATAN: ENUM disinkronkan dengan Controller dan View Blade
+    $table->enum('status', ['Pending', 'Diproses', 'Selesai', 'Batal'])->default('Pending');
+    $table->timestamps();
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- TABEL ORDER DETAILS -->
+                    <div class="my-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-mono font-bold text-slate-300">3. Migration Tabel Detail Relasi (order_details)</span>
+                            <span class="text-[11px] font-mono text-slate-500">database/migrations/xxxx_create_order_details_table.php</span>
+                        </div>
+                        <div class="code-block rounded-xl p-4 relative">
+                            <button onclick="copyCode(this)" class="absolute top-3 right-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded font-mono transition">Salin</button>
+                            <pre class="text-xs text-slate-200 overflow-x-auto"><code>Schema::create('order_details', function (Blueprint $table) {
+    $table->id();
+
+    // Relasi ke tabel orders dengan cascade on delete
+    $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+
+    // Relasi ke tabel foods dengan cascade on delete
+    $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
+
+    $table->integer('quantity');
+    $table->decimal('subtotal', 12, 2);
+    $table->timestamps();
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-amber-950/40 border border-amber-800/80 rounded-xl text-xs text-amber-200">
+                        <strong>PERHATIAN ASESOR:</strong> Perhatikan urutan pembuatan file migration! Tabel <code class="font-mono">foods</code> dan <code class="font-mono">orders</code> harus dibuat terlebih dahulu sebelum <code class="font-mono">order_details</code>, karena foreign key constraint membutuhkan tabel induk sudah terdaftar di database.
+                    </div>
+                </section>
+
+                <!-- BAB 4: ELOQUENT MODEL & MASS ASSIGNMENT -->
+                <section id="models" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 04</span> &bull; <span>Eloquent ORM</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Relasi Eloquent & Trik Bebas Mass Assignment
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Eloquent adalah jembatan antara kode PHP dan baris tabel MySQL. Di sinilah hubungan One-to-Many dideklarasikan, dan perlindungan Mass Assignment diatur.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                        <div class="code-block rounded-xl p-4 relative">
+                            <span class="text-[11px] font-mono text-emerald-400 font-bold block mb-2">app/Models/Order.php</span>
+                            <pre class="text-xs text-slate-200 overflow-x-auto"><code>class Order extends Model
+{
+    use HasFactory;
+
+    protected $guarded = ['id'];
+
+    // 1 Order punya BANYAK detail item
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="code-block rounded-xl p-4 relative">
+                            <span class="text-[11px] font-mono text-emerald-400 font-bold block mb-2">app/Models/OrderDetail.php</span>
+                            <pre class="text-xs text-slate-200 overflow-x-auto"><code>class OrderDetail extends Model
+{
+    use HasFactory;
+
+    // WAJIB: guarded ['id'] membuka kolom 'subtotal'
+    protected $guarded = ['id'];
+
+    public function food()
+    {
+        return $this->belongsTo(Food::class, 'food_id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300">
+                        <strong class="text-white block font-semibold mb-1">Mengapa $guarded = ['id'] lebih unggul daripada $fillable saat Serkom?</strong>
+                        Jika Anda menggunakan <code class="font-mono text-amber-300">$fillable</code> dan lupa menambahkan kolom <code class="font-mono text-amber-300">'subtotal'</code>, Laravel akan mengabaikan nilai subtotal tanpa menampilkan pesan error (silent fail), sehingga tagihan belanja bernilai Rp 0. Dengan <code class="font-mono text-emerald-400">$guarded = ['id']</code>, seluruh kolom aman terisi kecuali primary key ID.
+                    </div>
+                </section>
+
+                <!-- BAB 5: SEEDER & AKUN ADMIN DEFAULT -->
+                <section id="seeders" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 05</span> &bull; <span>Automated Seeding</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Membuat Seeder: Menu Makanan Awal & Akun Admin Penguji
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Saat penguji duduk di depan meja Anda, mereka tidak ingin menunggu Anda mengetik menu makanan satu per satu. Dengan satu perintah <code class="text-emerald-400 font-mono">php artisan migrate:fresh --seed</code>, 5 menu makanan dan 1 akun admin default langsung terisi otomatis.
+                    </p>
+
+                    <div class="code-block rounded-xl p-4 my-4 relative">
+                        <span class="text-[11px] font-mono text-slate-400 block mb-2">database/seeders/DatabaseSeeder.php</span>
+                        <pre class="text-xs text-slate-200 overflow-x-auto"><code>public function run(): void
+{
+    // 1. Akun Admin Default untuk Pengujian Asesor
+    User::firstOrCreate(
+        ['email' => 'admin@gmail.com'],
+        [
+            'name'     => 'Admin Toko',
+            'password' => Hash::make('password123'),
+        ]
+    );
+
+    // 2. Jalankan Seeder Katalog Makanan
+    $this->call([
+        FoodSeeder::class,
+    ]);
+}</code></pre>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-slate-300 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 block">Akun Login Bawaan Admin:</span>
+                            <span class="text-emerald-400 font-bold">Email: admin@gmail.com &bull; Password: password123</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-[10px]">Siap Uji</span>
+                    </div>
+                </section>
+
+                <!-- BAB 6: BREEZE & STORAGE LINK -->
+                <section id="breeze" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 06</span> &bull; <span>Auth & Storage</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Instalasi Laravel Breeze & Perintah Wajib Storage Link
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Laravel Breeze menyediakan sistem autentikasi lengkap (login, register, reset password) dengan tampilan Tailwind CSS yang siap pakai.
+                    </p>
+
+                    <div class="code-block rounded-xl p-4 my-4 relative">
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded font-mono transition">Salin</button>
+                        <pre class="text-xs text-slate-200 overflow-x-auto"><code># 1. Pasang package breeze
+composer require laravel/breeze --dev
+
+# 2. Generator scaffolding
+php artisan breeze:install blade
+
+# Pilihan prompt:
+# Stack: blade
+# Dark mode: no
+# Testing: 0 (PHPUnit)
+
+# 3. Jalankan perintah wajib setelah instalasi
+php artisan migrate
+php artisan storage:link
+npm install && npm run build</code></pre>
+                    </div>
+
+                    <div class="p-4 bg-rose-950/40 border border-rose-800/80 rounded-xl text-xs text-rose-200">
+                        <strong class="font-bold block mb-1">MENGAPA php artisan storage:link SANGAT KRUSIAL?</strong>
+                        Foto menu yang diunggah oleh admin disimpan di folder terproteksi <code class="font-mono">storage/app/public/foods</code>. Browser klien dilarang mengakses folder <code class="font-mono">storage</code> secara langsung demi keamanan. Perintah <code class="font-mono">storage:link</code> membuat shortcut simbolik (symlink) di folder <code class="font-mono">public/storage</code> sehingga gambar dapat dibuka lewat tag HTML <code class="font-mono">&lt;img src="{{ asset('storage/' . $food->image) }}"&gt;</code>. Tanpa perintah ini, semua gambar makanan akan 404 Not Found!
+                    </div>
+                </section>
+
+                <!-- BAB 7: CRUD CONTROLLER & CLEANUP GAMBAR -->
+                <section id="crud" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 07</span> &bull; <span>Resource Controller</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Logika CRUD Master Makanan & Siklus Hidup File Foto
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Modul CRUD di <code class="text-emerald-400 font-mono">FoodController.php</code> menangani 7 method Resource. Kunci nilai tambah di hadapan Asesor adalah kemampuan Anda mengelola file fisik di storage agar tidak meninggalkan file sampah saat di-update atau di-delete.
+                    </p>
+
+                    <div class="code-block rounded-xl p-4 my-4 relative">
+                        <span class="text-[11px] font-mono text-slate-400 block mb-2">Cuplikan Store & Update dengan Storage Cleanup</span>
+                        <pre class="text-xs text-slate-200 overflow-x-auto"><code>public function update(Request $request, Food $food)
+{
+    $validated = $request->validate([
+        'name'        => 'required|string|max:255',
+        'category'    => 'required|in:Makanan,Minuman,Cemilan',
+        'price'       => 'required|numeric|min:0',
+        'description' => 'required|string',
+        'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+    ]);
+
+    $imagePath = $food->image;
+    if ($request->hasFile('image')) {
+        // Hapus foto lama agar storage tidak membengkak
+        if ($food->image && Storage::disk('public')->exists($food->image)) {
+            Storage::disk('public')->delete($food->image);
+        }
+        $imagePath = $request->file('image')->store('foods', 'public');
+    }
+
+    $food->update([
+        'name'        => $validated['name'],
+        'category'    => $validated['category'],
+        'price'       => $validated['price'],
+        'description' => $validated['description'],
+        'image'       => $imagePath,
+    ]);
+
+    return redirect()->route('foods.index')->with('success', 'Menu berhasil diperbarui!');
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- BAB 8: TRANSAKSI PELANGGAN ATOMIK -->
+                <section id="transaksi" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 08</span> &bull; <span>Database Integrity</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Transaksi Pemesanan Atomik via DB::transaction
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Pemesanan makanan melibatkan 2 tabel sekaligus: baris induk di <code class="text-emerald-400 font-mono">orders</code> dan puluhan baris item di <code class="text-emerald-400 font-mono">order_details</code>. Jika terjadi error di tengah-tengah loop (misalnya satu menu sudah habis atau koneksi terputus), <strong class="text-white">DB Transaction</strong> akan membatalkan seluruh perubahan secara otomatis (<code class="text-rose-400 font-mono">rollBack</code>).
+                    </p>
+
+                    <div class="code-block rounded-xl p-4 my-4 relative">
+                        <span class="text-[11px] font-mono text-slate-400 block mb-2">app/Http/Controllers/OrderController.php (Method store)</span>
+                        <pre class="text-xs text-slate-200 overflow-x-auto"><code>public function store(Request $request)
+{
+    $request->validate([
+        'customer_name' => 'required|string|max:255',
+        'table_number'  => 'required|string|max:50',
+        'items'         => 'required|array',
+    ]);
+
+    $orderedItems = array_filter($request->items, fn ($qty) => (int)$qty > 0);
+    if (empty($orderedItems)) {
+        return back()->with('error', 'Pilih minimal satu menu makanan!');
+    }
+
+    DB::beginTransaction();
+    try {
+        $order = Order::create([
+            'customer_name' => $request->customer_name,
+            'table_number'  => $request->table_number,
+            'total_price'   => 0,
+            'status'        => 'Pending',
+        ]);
+
+        $totalPrice = 0;
+        foreach ($orderedItems as $foodId => $quantity) {
+            $food = Food::findOrFail($foodId);
+            $subtotal = $food->price * (int)$quantity;
+            $totalPrice += $subtotal;
+
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'food_id'  => $food->id,
+                'quantity' => (int)$quantity,
+                'subtotal' => $subtotal,
+            ]);
+        }
+
+        $order->update(['total_price' => $totalPrice]);
+        DB::commit();
+
+        return redirect()->route('customer.index')->with('success', 'Pesanan Meja ' . $order->table_number . ' Berhasil Dibuat!');
+    } catch (\Throwable $e) {
+        DB::rollBack();
+        return back()->with('error', 'Gagal memproses pesanan: ' . $e->getMessage());
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- BAB 9: DASHBOARD KASIR & EAGER LOADING -->
+                <section id="dashboard" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 09</span> &bull; <span>Query Optimization</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Dashboard Kasir & Pencegahan Masalah N+1 Query
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Di dashboard kasir, kita perlu menampilkan nama menu makanan yang ada di dalam setiap order detail. Jika Anda menulis <code class="text-rose-400 font-mono">Order::latest()->get()</code> lalu melakukan looping <code class="text-slate-300 font-mono">$order->orderDetails</code> di Blade, Laravel akan menjalankan query database baru untuk setiap pesanan. Ini disebut bencana <strong class="text-white">N+1 Query</strong>.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                        <div class="p-4 bg-rose-950/30 border border-rose-800 rounded-xl">
+                            <span class="text-xs font-mono font-bold text-rose-400 block mb-1">Salah (N+1 Query Issue):</span>
+                            <code class="text-xs font-mono text-slate-300 block bg-slate-950 p-2.5 rounded mb-2">$orders = Order::all();</code>
+                            <p class="text-[11px] text-slate-400">Jika ada 50 pesanan, Laravel mengeksekusi 51 kali query ke MySQL! Server menjadi lambat dan asesor akan mengurangi nilai optimasi database.</p>
+                        </div>
+                        <div class="p-4 bg-emerald-950/30 border border-emerald-800 rounded-xl">
+                            <span class="text-xs font-mono font-bold text-emerald-400 block mb-1">Benar (Eager Loading):</span>
+                            <code class="text-xs font-mono text-slate-300 block bg-slate-950 p-2.5 rounded mb-2">$orders = Order::with('orderDetails.food')->latest()->get();</code>
+                            <p class="text-[11px] text-slate-400">Hanya mengeksekusi 2-3 query saja berapapun jumlah pesanannya, karena relasi dimuat sekaligus di memori.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BAB 10: BEDAH 5 BUG MODUL ASLI -->
+                <section id="bug-autopsy" class="scroll-mt-24 bg-slate-900 border border-amber-800/80 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-amber-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 10</span> &bull; <span>Bug Autopsy & Resolution</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Bedah 5 Bug Kritis di Modul Sekolah Yang Sering Menjebak Siswa
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Banyak siswa mengira kode mereka salah saat ujian, padahal modul acuan mereka memiliki cacat logika. Berikut adalah daftar 5 bug modul asli dan kode perbaikan zero-error kami:
+                    </p>
+
+                    <!-- Accordion Bug Items -->
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 font-mono">Bug #1 Fatal</span>
+                                    <h4 class="font-bold text-white text-sm mt-1">Ketidaksinkronan ENUM Status Pesanan</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Di Modul 1 ditulis ENUM Title Case <code class="text-slate-300">['Pending', 'Diproses', 'Selesai']</code>, tapi di Modul 4 dropdown mengirim <code class="text-slate-300">"completed"</code> dan <code class="text-slate-300">"cancelled"</code>. Hasilnya: MySQL crash dengan error <code class="text-rose-400">Data truncated for column 'status'</code>.</p>
+                                </div>
+                                <span class="text-xs font-mono font-bold text-emerald-400 shrink-0">Fixed</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 font-mono">Bug #2 Form UX</span>
+                                    <h4 class="font-bold text-white text-sm mt-1">Form Reset Tanpa old('name')</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Pada form tambah/edit makanan Modul 2, tidak ada helper <code class="text-slate-300">value="{{ old('name') }}"</code>. Saat validasi gambar gagal, seluruh deskripsi yang sudah diketik user terhapus bersih.</p>
+                                </div>
+                                <span class="text-xs font-mono font-bold text-emerald-400 shrink-0">Fixed</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 font-mono">Bug #3 Data Risk</span>
+                                    <h4 class="font-bold text-white text-sm mt-1">Mass Assignment Kolom Subtotal</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Jika siswa memakai <code class="text-slate-300">$fillable</code> di OrderDetail dan lupa memasukkan <code class="text-slate-300">'subtotal'</code>, checkout pelanggan menyimpan subtotal 0 tanpa ada notifikasi error.</p>
+                                </div>
+                                <span class="text-xs font-mono font-bold text-emerald-400 shrink-0">Fixed</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 font-mono">Bug #4 Data Corruption</span>
+                                    <h4 class="font-bold text-white text-sm mt-1">Penghapusan Riwayat Transaksi Akibat Cascade</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Penghapusan menu master di admin menghapus baris transaksi historis di <code class="text-slate-300">order_details</code>. Dashboard kami menggunakan null-safe operator <code class="text-emerald-400">{{ $detail->food->name ?? 'Menu Terhapus' }}</code> agar kasir tetap aman.</p>
+                                </div>
+                                <span class="text-xs font-mono font-bold text-emerald-400 shrink-0">Fixed</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-500/20 text-sky-400 font-mono">Bug #5 Storage</span>
+                                    <h4 class="font-bold text-white text-sm mt-1">Penumpukan File Gambar Sampah di Storage</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Gambar lama tidak dibersihkan saat admin mengganti gambar atau menghapus makanan. Kami menambahkan verifikasi <code class="text-slate-300">Storage::disk('public')->delete()</code> di controller.</p>
+                                </div>
+                                <span class="text-xs font-mono font-bold text-emerald-400 shrink-0">Fixed</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BAB 11: SPEEDRUN DRILL & INTERACTIVE FLASHCARD -->
+                <section id="drill" class="scroll-mt-24 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-2">
+                        <span>Bab 11</span> &bull; <span>Interactive Memorization Drill</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+                        Kartu Flashcard Hafalan & Checklist Mandiri Ujian Serkom
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Klik pada kartu untuk membalik dan melihat jawaban atau perintah yang harus Anda ketik. Latih setiap hari hingga jari Anda otomatis bergerak tanpa membuka catatan!
+                    </p>
+
+                    <!-- Interactive Flashcard Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                        <div onclick="flipCard(this)" class="flashcard bg-slate-950 border border-slate-800 hover:border-emerald-500 p-5 rounded-2xl cursor-pointer transition select-none min-h-[140px] flex flex-col justify-between">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase">Flashcard 1 &bull; Klik untuk balik</span>
+                            <p class="text-sm font-bold text-white card-q">Perintah artisan membuat Model Food lengkap dengan Migration dan Resource Controller?</p>
+                            <p class="text-xs font-mono text-emerald-400 card-a hidden">php artisan make:model Food -mcr</p>
+                        </div>
+
+                        <div onclick="flipCard(this)" class="flashcard bg-slate-950 border border-slate-800 hover:border-emerald-500 p-5 rounded-2xl cursor-pointer transition select-none min-h-[140px] flex flex-col justify-between">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase">Flashcard 2 &bull; Klik untuk balik</span>
+                            <p class="text-sm font-bold text-white card-q">Perintah reset ulang database dan menjalankan seluruh seeder sekaligus?</p>
+                            <p class="text-xs font-mono text-emerald-400 card-a hidden">php artisan migrate:fresh --seed</p>
+                        </div>
+
+                        <div onclick="flipCard(this)" class="flashcard bg-slate-950 border border-slate-800 hover:border-emerald-500 p-5 rounded-2xl cursor-pointer transition select-none min-h-[140px] flex flex-col justify-between">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase">Flashcard 3 &bull; Klik untuk balik</span>
+                            <p class="text-sm font-bold text-white card-q">Perintah menghubungkan folder storage foto agar bisa tampil di browser?</p>
+                            <p class="text-xs font-mono text-emerald-400 card-a hidden">php artisan storage:link</p>
+                        </div>
+
+                        <div onclick="flipCard(this)" class="flashcard bg-slate-950 border border-slate-800 hover:border-emerald-500 p-5 rounded-2xl cursor-pointer transition select-none min-h-[140px] flex flex-col justify-between">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase">Flashcard 4 &bull; Klik untuk balik</span>
+                            <p class="text-sm font-bold text-white card-q">Bagaimana memuat relasi orderDetails dan food tanpa N+1 query?</p>
+                            <p class="text-xs font-mono text-emerald-400 card-a hidden">Order::with('orderDetails.food')->latest()->get();</p>
+                        </div>
+                    </div>
+
+                    <!-- Checklist Mandiri Siswa (LocalStorage Persistent) -->
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
+                        <h4 class="font-bold text-white text-base mb-1">Checklist Pengujian Mandiri Sebelum Dinilai Asesor</h4>
+                        <p class="text-xs text-slate-400 mb-4">Centang setiap kali Anda berhasil menyelesaikan langkah ini saat latihan mandiri:</p>
+
+                        <div class="space-y-3 text-xs text-slate-300 font-medium">
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c1')" id="c1" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>XAMPP Apache dan MySQL aktif pada port 3306 tanpa pesan error merah</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c2')" id="c2" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>php artisan migrate:fresh --seed sukses menghasilkan 3 tabel utama, akun admin, dan 5 menu makanan</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c3')" id="c3" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>php artisan storage:link berhasil dibuat dan foto menu muncul sempurna di browser</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c4')" id="c4" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>Halaman publik (/) mampu memfilter menu berdasarkan kategori dan menghitung subtotal real-time</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c5')" id="c5" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>Modal konfirmasi pesanan menampilkan ringkasan meja dan tombol submit menyimpan transaksi</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c6')" id="c6" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>Login admin (admin@gmail.com / password123) sukses membuka rekap pesanan di /dashboard</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-slate-900 transition">
+                                <input type="checkbox" onchange="toggleCheck(this, 'c7')" id="c7" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500">
+                                <span>Ubah status pesanan via dropdown tersimpan langsung tanpa error SQL data truncated</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-slate-800 py-10 text-center text-xs text-slate-500 font-mono">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Dibuat untuk persiapan Uji Kompetensi Keahlian (UKK) & Sertifikasi Kompetensi (Serkom LSP RPL).</p>
+            <p class="mt-1 text-slate-600">Pure Solid Editorial Design &bull; Zero Gradient Standard &bull; Mobile Friendly</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // 1. Copy Code Helper
+        function copyCode(btn) {
+            const pre = btn.nextElementSibling;
+            const text = pre.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Tersalin!';
+                btn.classList.add('text-emerald-400');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('text-emerald-400');
+                }, 2000);
+            });
+        }
+
+        // 2. Flashcard Flip Interaction
+        function flipCard(card) {
+            const q = card.querySelector('.card-q');
+            const a = card.querySelector('.card-a');
+            if (q.classList.contains('hidden')) {
+                q.classList.remove('hidden');
+                a.classList.add('hidden');
+                card.classList.remove('border-emerald-500');
+            } else {
+                q.classList.add('hidden');
+                a.classList.remove('hidden');
+                card.classList.add('border-emerald-500');
+            }
+        }
+
+        // 3. LocalStorage Checklist & Progress Tracking
+        const checkboxes = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+        function initChecklist() {
+            let checkedCount = 0;
+            checkboxes.forEach(id => {
+                const isChecked = localStorage.getItem('serkom_' + id) === 'true';
+                const el = document.getElementById(id);
+                if (el) {
+                    el.checked = isChecked;
+                    if (isChecked) checkedCount++;
+                }
+            });
+            updateProgressBar(checkedCount);
+        }
+
+        function toggleCheck(el, id) {
+            localStorage.setItem('serkom_' + id, el.checked);
+            let count = 0;
+            checkboxes.forEach(chkId => {
+                if (document.getElementById(chkId)?.checked) count++;
+            });
+            updateProgressBar(count);
+        }
+
+        function updateProgressBar(count) {
+            const pct = Math.round((count / checkboxes.length) * 100);
+            const bar = document.getElementById('learningProgressBar');
+            const txt = document.getElementById('learningProgressText');
+            if (bar && txt) {
+                bar.style.width = pct + '%';
+                txt.textContent = pct + '% Selesai (' + count + '/' + checkboxes.length + ' Langkah)';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChecklist();
+
+            // GSAP ScrollTrigger Anchor Navigation Spy
+            gsap.registerPlugin(ScrollTrigger);
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('aside nav a');
+
+            sections.forEach(sec => {
+                ScrollTrigger.create({
+                    trigger: sec,
+                    start: 'top 30%',
+                    end: 'bottom 30%',
+                    onEnter: () => setActive(sec.id),
+                    onEnterBack: () => setActive(sec.id),
+                });
+            });
+
+            function setActive(id) {
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === '#' + id) {
+                        link.classList.add('bg-slate-800', 'text-emerald-400', 'font-bold');
+                    } else {
+                        link.classList.remove('bg-slate-800', 'text-emerald-400', 'font-bold');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
