@@ -104,7 +104,7 @@ export default function App() {
       </header>
 
       {/* Main Container */}
-      <main className="max-w-[760px] mx-auto px-6 py-16 flex-1 w-full space-y-16">
+      <main className="max-w-[760px] mx-auto px-4 sm:px-6 py-16 flex-1 w-full min-w-0 overflow-x-hidden space-y-16 break-words">
         
         {/* Title & Metadata */}
         <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800 pb-12">
@@ -165,7 +165,7 @@ export default function App() {
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
               Buka aplikasi <strong>XAMPP Control Panel</strong> dan klik tombol <strong>Start</strong> pada modul <strong>Apache</strong> serta modul <strong>MySQL</strong>. Indikator keduanya harus menyala hijau.
             </p>
-            <div className="p-4 rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 space-y-2">
+            <div className="p-4 rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 space-y-2 overflow-hidden w-full max-w-full min-w-0">
               <div className="text-neutral-500"># Cek koneksi port dan atasi error jika MySQL gagal start:</div>
               <div>net stop MySQL  <span className="text-neutral-500"># Hentikan service MySQL Windows lain yang membajak port 3306</span></div>
               <div className="text-neutral-400">Uji coba buka di browser: <span className="text-emerald-400">http://localhost/phpmyadmin</span></div>
@@ -173,7 +173,7 @@ export default function App() {
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Penjelasan Teknis:</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Apache bertindak sebagai server web lokal untuk menangani request HTTP browser, sedangkan MySQL adalah RDBMS relasional yang menjadi wadah tabel <code className="font-mono">foods</code>, <code className="font-mono">orders</code>, dan <code className="font-mono">order_details</code>. Keduanya wajib aktif sebelum perintah artisan migrasi dijalankan.
+                Apache bertindak sebagai server web lokal untuk menangani request HTTP browser, sedangkan MySQL adalah RDBMS relasional yang menjadi wadah tabel <code className="font-mono break-all inline-block max-w-full align-bottom">foods</code>, <code className="font-mono break-all inline-block max-w-full align-bottom">orders</code>, dan <code className="font-mono break-all inline-block max-w-full align-bottom">order_details</code>. Keduanya wajib aktif sebelum perintah artisan migrasi dijalankan.
               </p>
             </div>
           </div>
@@ -201,7 +201,7 @@ code .</code></pre>
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Penjelasan Teknis:</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Perintah <code className="font-mono">composer create-project laravel/laravel pesanmakan</code> mengunduh kerangka kerja resmi Laravel 11 beserta dependensi vendor. Perintah <code className="font-mono">code .</code> membuka folder proyek langsung di Visual Studio Code.
+                Perintah <code className="font-mono break-all inline-block max-w-full align-bottom">composer create-project laravel/laravel pesanmakan</code> mengunduh kerangka kerja resmi Laravel 11 beserta dependensi vendor. Perintah <code className="font-mono break-all inline-block max-w-full align-bottom">code .</code> membuka folder proyek langsung di Visual Studio Code.
               </p>
             </div>
           </div>
@@ -212,10 +212,10 @@ code .</code></pre>
               Langkah 3: Konfigurasi Database pada File .env
             </h3>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Buka file <code className="font-mono">.env</code> di root direktori proyek, lalu sesuaikan blok koneksi MySQL:
+              Buka file <code className="font-mono break-all inline-block max-w-full align-bottom">.env</code> di root direktori proyek, lalu sesuaikan blok koneksi MySQL:
             </p>
-            <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed">
-              <pre><code>DB_CONNECTION=mysql
+            <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed overflow-hidden w-full max-w-full min-w-0">
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=pesanmakan
@@ -225,7 +225,7 @@ DB_PASSWORD=</code></pre>
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Penjelasan Teknis &amp; Tips Serkom:</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                XAMPP default di Windows menggunakan user <code className="font-mono">root</code> tanpa password. Jika database <code className="font-mono">pesanmakan</code> belum dibuat di phpMyAdmin, jangan khawatir! Saat perintah migrasi pertama dijalankan, Laravel 11 akan mendeteksi database belum ada dan bertanya: <em>"The database 'pesanmakan' does not exist. Would you like to create it?"</em> Ketik <strong>yes</strong> lalu Enter.
+                XAMPP default di Windows menggunakan user <code className="font-mono break-all inline-block max-w-full align-bottom">root</code> tanpa password. Jika database <code className="font-mono break-all inline-block max-w-full align-bottom">pesanmakan</code> belum dibuat di phpMyAdmin, jangan khawatir! Saat perintah migrasi pertama dijalankan, Laravel 11 akan mendeteksi database belum ada dan bertanya: <em>"The database 'pesanmakan' does not exist. Would you like to create it?"</em> Ketik <strong>yes</strong> lalu Enter.
               </p>
             </div>
           </div>
@@ -253,10 +253,10 @@ php artisan make:model OrderDetail -m</code></pre>
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Bedah Arti Flag:</strong>
               <ul className="list-disc list-outside pl-5 space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-m:</strong> Otomatis membuat berkas Migration tabel di folder <code className="font-mono">database/migrations/</code>.</li>
-                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-c:</strong> Otomatis membuat berkas Controller di <code className="font-mono">app/Http/Controllers/</code>.</li>
-                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-r:</strong> Menghasilkan 7 method Resource lengkap: <code className="font-mono">index, create, store, show, edit, update, destroy</code>.</li>
-                <li><strong>Mengapa OrderDetail hanya -m?</strong> Karena OrderDetail hanya bertindak sebagai tabel detail penampung item; logikanya dikendalikan langsung oleh <code className="font-mono">OrderController</code> saat checkout.</li>
+                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-m:</strong> Otomatis membuat berkas Migration tabel di folder <code className="font-mono break-all inline-block max-w-full align-bottom">database/migrations/</code>.</li>
+                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-c:</strong> Otomatis membuat berkas Controller di <code className="font-mono break-all inline-block max-w-full align-bottom">app/Http/Controllers/</code>.</li>
+                <li><strong className="text-neutral-900 dark:text-neutral-100 font-mono">-r:</strong> Menghasilkan 7 method Resource lengkap: <code className="font-mono break-all inline-block max-w-full align-bottom">index, create, store, show, edit, update, destroy</code>.</li>
+                <li><strong>Mengapa OrderDetail hanya -m?</strong> Karena OrderDetail hanya bertindak sebagai tabel detail penampung item; logikanya dikendalikan langsung oleh <code className="font-mono break-all inline-block max-w-full align-bottom">OrderController</code> saat checkout.</li>
               </ul>
             </div>
           </div>
@@ -271,7 +271,7 @@ php artisan make:model OrderDetail -m</code></pre>
             <div className="space-y-2">
               <span className="text-xs font-mono font-semibold text-neutral-500 block">1. File: database/migrations/xxxx_create_foods_table.php</span>
               <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[300px] overflow-y-auto leading-relaxed">
-                <pre><code>{`<?php
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -300,7 +300,7 @@ return new class extends Migration
 };`}</code></pre>
               </div>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                <strong>Penjelasan Kode:</strong> Kolom <code className="font-mono">price</code> menggunakan tipe <code className="font-mono">decimal(10, 2)</code> untuk memastikan angka nominal harga rupiah tidak mengalami pembulatan float. Kolom <code className="font-mono">image</code> dan <code className="font-mono">description</code> diberi <code className="font-mono">nullable()</code> agar menu tetap bisa disimpan meski belum memiliki foto atau deskripsi.
+                <strong>Penjelasan Kode:</strong> Kolom <code className="font-mono break-all inline-block max-w-full align-bottom">price</code> menggunakan tipe <code className="font-mono break-all inline-block max-w-full align-bottom">decimal(10, 2)</code> untuk memastikan angka nominal harga rupiah tidak mengalami pembulatan float. Kolom <code className="font-mono break-all inline-block max-w-full align-bottom">image</code> dan <code className="font-mono break-all inline-block max-w-full align-bottom">description</code> diberi <code className="font-mono break-all inline-block max-w-full align-bottom">nullable()</code> agar menu tetap bisa disimpan meski belum memiliki foto atau deskripsi.
               </p>
             </div>
 
@@ -308,7 +308,7 @@ return new class extends Migration
             <div className="space-y-2">
               <span className="text-xs font-mono font-semibold text-neutral-500 block">2. File: database/migrations/xxxx_create_orders_table.php</span>
               <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[300px] overflow-y-auto leading-relaxed">
-                <pre><code>{`<?php
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -335,7 +335,7 @@ return new class extends Migration
 };`}</code></pre>
               </div>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                <strong>Penjelasan Kode:</strong> Kolom <code className="font-mono">total_price</code> diberi nilai default 0 saat order induk pertama kali di-create, sebelum di-update dengan akumulasi subtotal dari order details. Status pesanan menggunakan ENUM terstandardisasi TitleCase agar konsisten dengan controller dan view.
+                <strong>Penjelasan Kode:</strong> Kolom <code className="font-mono break-all inline-block max-w-full align-bottom">total_price</code> diberi nilai default 0 saat order induk pertama kali di-create, sebelum di-update dengan akumulasi subtotal dari order details. Status pesanan menggunakan ENUM terstandardisasi TitleCase agar konsisten dengan controller dan view.
               </p>
             </div>
 
@@ -343,7 +343,7 @@ return new class extends Migration
             <div className="space-y-2">
               <span className="text-xs font-mono font-semibold text-neutral-500 block">3. File: database/migrations/xxxx_create_order_details_table.php</span>
               <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[300px] overflow-y-auto leading-relaxed">
-                <pre><code>{`<?php
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -379,7 +379,7 @@ return new class extends Migration
 };`}</code></pre>
               </div>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                <strong>Penjelasan Kode:</strong> <code className="font-mono">foreignId('order_id')-&gt;constrained('orders')-&gt;onDelete('cascade')</code> menciptakan constraint foreign key fisik di MySQL. Jika suatu pesanan dihapus, seluruh detail makanannya akan otomatis ikut terhapus bersih dari database.
+                <strong>Penjelasan Kode:</strong> <code className="font-mono break-all inline-block max-w-full align-bottom">foreignId('order_id')-&gt;constrained('orders')-&gt;onDelete('cascade')</code> menciptakan constraint foreign key fisik di MySQL. Jika suatu pesanan dihapus, seluruh detail makanannya akan otomatis ikut terhapus bersih dari database.
               </p>
             </div>
           </div>
@@ -390,12 +390,12 @@ return new class extends Migration
               Langkah 6: Seeder Makanan &amp; Akun Admin Bawaan Asesor
             </h3>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Buat seeder dengan perintah <code className="font-mono">php artisan make:seeder FoodSeeder</code> lalu isi kode berikut:
+              Buat seeder dengan perintah <code className="font-mono break-all inline-block max-w-full align-bottom">php artisan make:seeder FoodSeeder</code> lalu isi kode berikut:
             </p>
 
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[300px] overflow-y-auto leading-relaxed">
               <div className="text-neutral-500 mb-2">// database/seeders/FoodSeeder.php</div>
-              <pre><code>{`<?php
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 namespace Database\Seeders;
 
@@ -459,7 +459,7 @@ class FoodSeeder extends Seeder
 
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto leading-relaxed">
               <div className="text-neutral-500 mb-2">// database/seeders/DatabaseSeeder.php (Akun Admin Default)</div>
-              <pre><code>{`<?php
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 namespace Database\Seeders;
 
@@ -492,7 +492,7 @@ class DatabaseSeeder extends Seeder
               <strong className="text-neutral-900 dark:text-neutral-100 block">Perintah Eksekusi Seeder:</strong>
               <div className="font-mono text-emerald-600 dark:text-emerald-400 font-bold text-sm">php artisan migrate:fresh --seed</div>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Gunakan dua tanda strip <code className="font-mono">--seed</code>. Perintah ini membersihkan seluruh database, membuat 3 tabel dari nol, dan langsung mengisi 5 menu makanan serta akun admin (email: <code className="font-mono font-bold">admin@gmail.com</code> | password: <code className="font-mono font-bold">password123</code>) siap diuji di hadapan penguji.
+                Gunakan dua tanda strip <code className="font-mono break-all inline-block max-w-full align-bottom">--seed</code>. Perintah ini membersihkan seluruh database, membuat 3 tabel dari nol, dan langsung mengisi 5 menu makanan serta akun admin (email: <code className="font-mono font-bold">admin@gmail.com</code> | password: <code className="font-mono font-bold">password123</code>) siap diuji di hadapan penguji.
               </p>
             </div>
           </div>
@@ -503,13 +503,13 @@ class DatabaseSeeder extends Seeder
               Langkah 7: Model Eloquent &amp; Aturan $guarded = ['id']
             </h3>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Buka ketiga file model di <code className="font-mono">app/Models/</code> dan deklarasikan relasi serta aturan mass assignment:
+              Buka ketiga file model di <code className="font-mono break-all inline-block max-w-full align-bottom">app/Models/</code> dan deklarasikan relasi serta aturan mass assignment:
             </p>
 
             <div className="space-y-3">
-              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed">
+              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed overflow-hidden w-full max-w-full min-w-0">
                 <div className="text-neutral-500 mb-1">// app/Models/Food.php</div>
-                <pre><code>{`class Food extends Model
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`class Food extends Model
 {
     use HasFactory;
     protected $table = 'foods';
@@ -522,9 +522,9 @@ class DatabaseSeeder extends Seeder
 }`}</code></pre>
               </div>
 
-              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed">
+              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed overflow-hidden w-full max-w-full min-w-0">
                 <div className="text-neutral-500 mb-1">// app/Models/Order.php</div>
-                <pre><code>{`class Order extends Model
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`class Order extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
@@ -536,9 +536,9 @@ class DatabaseSeeder extends Seeder
 }`}</code></pre>
               </div>
 
-              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed">
+              <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed overflow-hidden w-full max-w-full min-w-0">
                 <div className="text-neutral-500 mb-1">// app/Models/OrderDetail.php</div>
-                <pre><code>{`class OrderDetail extends Model
+                <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`class OrderDetail extends Model
 {
     use HasFactory;
     protected $table = 'order_details';
@@ -562,7 +562,7 @@ class DatabaseSeeder extends Seeder
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Penjelasan Penting $guarded = ['id']:</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Jika Anda menggunakan <code className="font-mono">$fillable = ['order_id', 'food_id', 'quantity']</code> namun lupa mendaftarkan kolom <code className="font-mono">'subtotal'</code>, Laravel akan membuang nilai subtotal secara diam-diam (*silent failure*). Akibatnya subtotal tersimpan Rp 0 di database. Menggunakan <code className="font-mono font-bold">protected $guarded = ['id'];</code> menjamin seluruh kolom aman tersimpan tanpa risiko terblokir mass assignment.
+                Jika Anda menggunakan <code className="font-mono break-all inline-block max-w-full align-bottom">$fillable = ['order_id', 'food_id', 'quantity']</code> namun lupa mendaftarkan kolom <code className="font-mono break-all inline-block max-w-full align-bottom">'subtotal'</code>, Laravel akan membuang nilai subtotal secara diam-diam (*silent failure*). Akibatnya subtotal tersimpan Rp 0 di database. Menggunakan <code className="font-mono font-bold">protected $guarded = ['id'];</code> menjamin seluruh kolom aman tersimpan tanpa risiko terblokir mass assignment.
               </p>
             </div>
           </div>
@@ -587,8 +587,8 @@ class DatabaseSeeder extends Seeder
             <h3 className="font-serif text-xl text-neutral-900 dark:text-neutral-100">
               Langkah 1: Instalasi Laravel Breeze &amp; Perintah Wajib Storage Link
             </h3>
-            <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed">
-              <pre><code># 1. Pasang package Breeze
+            <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 leading-relaxed overflow-hidden w-full max-w-full min-w-0">
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code># 1. Pasang package Breeze
 composer require laravel/breeze --dev
 
 # 2. Generator scaffolding
@@ -604,7 +604,7 @@ npm run build</code></pre>
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Mengapa php artisan storage:link Sangat Krusial?</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                File foto menu makanan diunggah ke folder privat <code className="font-mono">storage/app/public/foods/</code>. Folder ini tidak boleh diakses langsung oleh browser publik demi keamanan. Perintah <code className="font-mono font-bold">php artisan storage:link</code> menciptakan pintasan simbolik (*symlink*) dari <code className="font-mono">public/storage</code> ke folder privat tersebut. Tanpa symlink ini, seluruh gambar menu yang diunggah akan rusak / 404 saat dibuka lewat browser!
+                File foto menu makanan diunggah ke folder privat <code className="font-mono break-all inline-block max-w-full align-bottom">storage/app/public/foods/</code>. Folder ini tidak boleh diakses langsung oleh browser publik demi keamanan. Perintah <code className="font-mono font-bold">php artisan storage:link</code> menciptakan pintasan simbolik (*symlink*) dari <code className="font-mono break-all inline-block max-w-full align-bottom">public/storage</code> ke folder privat tersebut. Tanpa symlink ini, seluruh gambar menu yang diunggah akan rusak / 404 saat dibuka lewat browser!
               </p>
             </div>
           </div>
@@ -816,7 +816,7 @@ class FoodController extends Controller
               Langkah 3: Tiga Berkas Tampilan Blade Admin (index, create, edit)
             </h3>
             <p className="text-xs text-neutral-600 dark:text-neutral-400">
-              Buat folder <code className="font-mono">resources/views/admin/foods/</code> dan buat ketiga berkas berikut:
+              Buat folder <code className="font-mono break-all inline-block max-w-full align-bottom">resources/views/admin/foods/</code> dan buat ketiga berkas berikut:
             </p>
 
             <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-neutral-950 text-neutral-200">
@@ -845,7 +845,7 @@ class FoodController extends Controller
 
               <div className="p-4 overflow-x-auto text-xs font-mono leading-relaxed max-h-[350px] overflow-y-auto">
                 {activeTabBlade === 'index' && (
-                  <pre><code>{`<!-- resources/views/admin/foods/index.blade.php -->
+                  <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<!-- resources/views/admin/foods/index.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Master Data Makanan</h2>
@@ -901,7 +901,7 @@ class FoodController extends Controller
                 )}
 
                 {activeTabBlade === 'create' && (
-                  <pre><code>{`<!-- resources/views/admin/foods/create.blade.php -->
+                  <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<!-- resources/views/admin/foods/create.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Makanan</h2>
@@ -944,7 +944,7 @@ class FoodController extends Controller
                 )}
 
                 {activeTabBlade === 'edit' && (
-                  <pre><code>{`<!-- resources/views/admin/foods/edit.blade.php -->
+                  <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<!-- resources/views/admin/foods/edit.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Makanan</h2>
@@ -1015,7 +1015,7 @@ class FoodController extends Controller
             </h3>
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[350px] overflow-y-auto leading-relaxed">
               <div className="text-neutral-500 mb-2">// app/Http/Controllers/OrderController.php (Sisi Customer)</div>
-              <pre><code>{`<?php
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 namespace App\Http\Controllers;
 
@@ -1098,7 +1098,7 @@ class OrderController extends Controller
             <div className="p-3.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 text-xs space-y-1.5">
               <strong className="text-neutral-900 dark:text-neutral-100 block">Penjelasan Kunci Transaksi DB:</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Pemesanan melibatkan penulisan ke 2 tabel berbeda: <code className="font-mono">orders</code> dan <code className="font-mono">order_details</code>. Jika di tengah-tengah loop salah satu menu ternyata sudah dihapus atau server kehabisan memori, <code className="font-mono font-bold">DB::rollBack()</code> akan menghapus kembali baris order induk yang baru saja dibuat. Data Anda tetap bersih tanpa baris transaksi bodong.
+                Pemesanan melibatkan penulisan ke 2 tabel berbeda: <code className="font-mono break-all inline-block max-w-full align-bottom">orders</code> dan <code className="font-mono break-all inline-block max-w-full align-bottom">order_details</code>. Jika di tengah-tengah loop salah satu menu ternyata sudah dihapus atau server kehabisan memori, <code className="font-mono font-bold">DB::rollBack()</code> akan menghapus kembali baris order induk yang baru saja dibuat. Data Anda tetap bersih tanpa baris transaksi bodong.
               </p>
             </div>
           </div>
@@ -1109,7 +1109,7 @@ class OrderController extends Controller
               Langkah 2: Tampilan Katalog Pelanggan (resources/views/customer/index.blade.php)
             </h3>
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[350px] overflow-y-auto leading-relaxed">
-              <pre><code>{`<!DOCTYPE html>
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -1288,7 +1288,7 @@ class OrderController extends Controller
               Langkah 1: Dashboard Monitoring (resources/views/dashboard.blade.php)
             </h3>
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[350px] overflow-y-auto leading-relaxed">
-              <pre><code>{`<!-- resources/views/dashboard.blade.php -->
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<!-- resources/views/dashboard.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
@@ -1391,7 +1391,7 @@ class OrderController extends Controller
               Langkah 2: File Routing Terpadu Lengkap (routes/web.php)
             </h3>
             <div className="rounded-lg bg-neutral-950 text-neutral-200 font-mono text-xs border border-neutral-800 p-4 overflow-x-auto max-h-[300px] overflow-y-auto leading-relaxed">
-              <pre><code>{`<?php
+              <pre className="overflow-x-auto max-w-full p-4 scrollbar-thin"><code>{`<?php
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FoodController;
@@ -1444,40 +1444,40 @@ require __DIR__.'/auth.php';`}</code></pre>
             <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 space-y-1.5 text-xs">
               <strong className="text-rose-600 dark:text-rose-400 font-mono text-sm block">1. Discrepancy ENUM Status (Fatal SQLSTATE[01000])</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Migration memakai <code className="font-mono">['Pending', 'Diproses', 'Selesai']</code>, tapi controller menyimpan <code className="font-mono">'pending'</code> dan view mengirim <code className="font-mono">"completed"</code>. MySQL mode strict akan menolak nilai asing ini dan melempar fatal error data truncated.
+                Migration memakai <code className="font-mono break-all inline-block max-w-full align-bottom">['Pending', 'Diproses', 'Selesai']</code>, tapi controller menyimpan <code className="font-mono break-all inline-block max-w-full align-bottom">'pending'</code> dan view mengirim <code className="font-mono break-all inline-block max-w-full align-bottom">"completed"</code>. MySQL mode strict akan menolak nilai asing ini dan melempar fatal error data truncated.
               </p>
               <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <strong>Solusi:</strong> Samakan seluruh ENUM menjadi <code className="font-mono">['Pending', 'Diproses', 'Selesai', 'Batal']</code> di migration, controller validasi, dan option select Blade.
+                <strong>Solusi:</strong> Samakan seluruh ENUM menjadi <code className="font-mono break-all inline-block max-w-full align-bottom">['Pending', 'Diproses', 'Selesai', 'Batal']</code> di migration, controller validasi, dan option select Blade.
               </div>
             </div>
 
             <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 space-y-1.5 text-xs">
               <strong className="text-amber-600 dark:text-amber-400 font-mono text-sm block">2. Form Reset Tanpa old() Helper</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Form create/edit makanan di Modul 2 tidak menyertakan <code className="font-mono">value="&#123;&#123; old('name') &#125;&#125;"</code>. Jika validasi gagal (misal ukuran foto &gt; 2MB), form me-refresh dan semua teks yang sudah diketik hilang.
+                Form create/edit makanan di Modul 2 tidak menyertakan <code className="font-mono break-all inline-block max-w-full align-bottom">value="&#123;&#123; old('name') &#125;&#125;"</code>. Jika validasi gagal (misal ukuran foto &gt; 2MB), form me-refresh dan semua teks yang sudah diketik hilang.
               </p>
               <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <strong>Solusi:</strong> Tambahkan <code className="font-mono">value="&#123;&#123; old('name') &#125;&#125;"</code> dan tampilkan pesan kesalahan via <code className="font-mono">@error('name')</code>.
+                <strong>Solusi:</strong> Tambahkan <code className="font-mono break-all inline-block max-w-full align-bottom">value="&#123;&#123; old('name') &#125;&#125;"</code> dan tampilkan pesan kesalahan via <code className="font-mono break-all inline-block max-w-full align-bottom">@error('name')</code>.
               </div>
             </div>
 
             <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 space-y-1.5 text-xs">
               <strong className="text-amber-600 dark:text-amber-400 font-mono text-sm block">3. Mass Assignment Silent Dropout pada Subtotal</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Jika siswa memakai <code className="font-mono">$fillable</code> di OrderDetail dan lupa menuliskan <code className="font-mono">'subtotal'</code>, Laravel akan membuang nilai subtotal diam-diam tanpa exception, membuat subtotal tersimpan Rp 0.
+                Jika siswa memakai <code className="font-mono break-all inline-block max-w-full align-bottom">$fillable</code> di OrderDetail dan lupa menuliskan <code className="font-mono break-all inline-block max-w-full align-bottom">'subtotal'</code>, Laravel akan membuang nilai subtotal diam-diam tanpa exception, membuat subtotal tersimpan Rp 0.
               </p>
               <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <strong>Solusi:</strong> Deklarasikan <code className="font-mono">protected $guarded = ['id'];</code> pada OrderDetail agar kolom subtotal terisi aman.
+                <strong>Solusi:</strong> Deklarasikan <code className="font-mono break-all inline-block max-w-full align-bottom">protected $guarded = ['id'];</code> pada OrderDetail agar kolom subtotal terisi aman.
               </div>
             </div>
 
             <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 space-y-1.5 text-xs">
               <strong className="text-rose-600 dark:text-rose-400 font-mono text-sm block">4. Penghapusan Riwayat Transaksi Akibat Cascade</strong>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Menghapus menu makanan di admin akan menghapus seluruh data belanjaan lampau di <code className="font-mono">order_details</code> karena <code className="font-mono">onDelete('cascade')</code>, merusak pembukuan kasir.
+                Menghapus menu makanan di admin akan menghapus seluruh data belanjaan lampau di <code className="font-mono break-all inline-block max-w-full align-bottom">order_details</code> karena <code className="font-mono break-all inline-block max-w-full align-bottom">onDelete('cascade')</code>, merusak pembukuan kasir.
               </p>
               <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <strong>Solusi:</strong> Di view dashboard gunakan operator null-safe: <code className="font-mono">&#123;&#123; $detail-&gt;food-&gt;name ?? 'Menu Terhapus' &#125;&#125;</code>.
+                <strong>Solusi:</strong> Di view dashboard gunakan operator null-safe: <code className="font-mono break-all inline-block max-w-full align-bottom">&#123;&#123; $detail-&gt;food-&gt;name ?? 'Menu Terhapus' &#125;&#125;</code>.
               </div>
             </div>
 
@@ -1487,7 +1487,7 @@ require __DIR__.'/auth.php';`}</code></pre>
                 Modul 2 tidak menyertakan pembersihan file fisik lama saat gambar di-update atau menu dihapus.
               </p>
               <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                <strong>Solusi:</strong> Gunakan <code className="font-mono">Storage::disk('public')-&gt;delete($food-&gt;image)</code> pada method <code className="font-mono">update()</code> dan <code className="font-mono">destroy()</code>.
+                <strong>Solusi:</strong> Gunakan <code className="font-mono break-all inline-block max-w-full align-bottom">Storage::disk('public')-&gt;delete($food-&gt;image)</code> pada method <code className="font-mono break-all inline-block max-w-full align-bottom">update()</code> dan <code className="font-mono break-all inline-block max-w-full align-bottom">destroy()</code>.
               </div>
             </div>
           </div>
